@@ -1,24 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
-
+import "./App.css";
+import React from "react";
+import Header from "./component/Header";
+import Product from "./component/ProductList";
+import { Routes, Route, BrowserRouter } from "react-router-dom";
+import ProductDetails from "./component/ProductDetails";
+import ContextProvider from "./Context/index";
+import MyFavourite from "./component/MyFavourite";
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <React.Fragment>
+      <BrowserRouter>
+        <ContextProvider>
+          <Header>
+            <Routes>
+              {/* This is the Home page(initial load) */}
+              <Route path="/" exact element={<Product />} />
+              {/* Once user select any product it's redirect to Product details page*/}
+              <Route path="/product/:id" element={<ProductDetails />} />
+              <Route path="/myfavourites" element={<MyFavourite />} />
+            </Routes>
+          </Header>
+        </ContextProvider>
+      </BrowserRouter>
+    </React.Fragment>
   );
 }
 
